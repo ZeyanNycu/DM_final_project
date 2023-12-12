@@ -1,5 +1,6 @@
 import argparse
 from data_preprocess.process import *
+from classifier import *
 import pandas as pd
 import json
 
@@ -18,6 +19,6 @@ if __name__ == '__main__':
     #Do data preprocess
     df = construct_dataset(data['dataset_path'])
     if(args.mode == "class"):
-        pass
+        df = add_pop_class(df)
     elif(args.mode == "cluster"):
         pass

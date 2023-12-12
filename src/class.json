@@ -1,0 +1,4 @@
+{
+    "output" : "log/class/result.csv",
+    "dataset_path" : "../dataset"
+}
