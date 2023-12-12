@@ -1,5 +1,6 @@
 import argparse
 from data_preprocess.process import *
+from classifier import *
 import pandas as pd
 import json
 from model.cluster import *
@@ -19,6 +20,10 @@ if __name__ == '__main__':
     #Do data preprocess
     df = construct_dataset(data['dataset_path'])
     if(args.mode == "class"):
-        pass
+        df = add_pop_class(df)
+        X,y = split_target(df)
+        len = len(X[0])
+        model = NN(len)
+        model.train(X,y)
     elif(args.mode == "cluster"):
         do_cluster(data['cluster_output'],df,data["num_clusters"],data['method'],data['action'])
