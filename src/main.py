@@ -20,5 +20,9 @@ if __name__ == '__main__':
     df = construct_dataset(data['dataset_path'])
     if(args.mode == "class"):
         df = add_pop_class(df)
+        X,y = split_target(df)
+        len = len(X[0])
+        model = NN(len)
+        model.train(X,y)
     elif(args.mode == "cluster"):
         pass
