@@ -2,6 +2,7 @@ import argparse
 from data_preprocess.process import *
 import pandas as pd
 import json
+from model.cluster import *
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Description of your program')
@@ -20,4 +21,4 @@ if __name__ == '__main__':
     if(args.mode == "class"):
         pass
     elif(args.mode == "cluster"):
-        pass
+        do_cluster(data['cluster_output'],df,data["num_clusters"],data['method'],data['action'])

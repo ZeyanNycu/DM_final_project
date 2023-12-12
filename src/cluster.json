@@ -1,0 +1,7 @@
+{
+    "dataset_path":"D:\\Data_mining_hw2\\DM_final_project\\dataset",
+    "cluster_output":"D:\\Data_mining_hw2\\DM_final_project\\log\\cluster",
+    "num_clusters":5,
+    "method": "popularity",
+    "action": "evaluate_visualize(2D)"
+}
