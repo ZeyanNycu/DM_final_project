@@ -6,7 +6,8 @@ from keras.layers import Dense
 from sklearn.model_selection import KFold
 import tensorflow as tf
 from sklearn.preprocessing import OneHotEncoder
-
+from sklearn.metrics import roc_auc_score,f1_score
+                             
 dict_transtoCap = {
     0:'E',
     1:'D',
@@ -37,14 +38,17 @@ class NN:
         
     def train(self,X,y,epochs=100,batch_size=128):
         kf = KFold(n_splits=5, shuffle=True)
-
+        f1_list = []
         for train_idx, test_idx in kf.split(y):
             X_train, X_test = X[train_idx], X[test_idx]
             y_train, y_test = y[train_idx], y[test_idx]
             self.model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size)
-            scores = self.model.evaluate(X_test, y_test, verbose=0)
-            print(f'Score for fold : {self.model.metrics_names[0]} of {scores[0]}; {self.model.metrics_names[1]} of {scores[1]*100}%')
-            pass
+            y_pred = self.model.predict(X_test,verbose=0)
+            y_pred = np.argmax(y_pred,axis=1)
+            y_test = np.argmax(y_test,axis=1)
+            print(f"Score for fold : f1-score of {f1_score(y_test,y_pred,labels=[0,1,2,3,4],average='macro')}")
+            f1_list.append(f1_score(y_test,y_pred,labels=[0,1,2,3,4],average='macro'))
+        print('avg f1 : ', np.mean(f1_list))
         
 def add_pop_class(data):
     target = 'popularity'
