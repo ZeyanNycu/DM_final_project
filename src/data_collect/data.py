@@ -144,8 +144,8 @@ def search_for_year_track(start_year, end_year, turn):
     global output
     global count
 
-    if os.path.exists('spotify_api_'+str(start_year)+'.csv'):
-        file = 'spotify_api_'+str(start_year)+'.csv'
+    if os.path.exists('../../dataset/spotify_api_'+str(start_year)+'.csv'):
+        file = '../../dataset/spotify_api_'+str(start_year)+'.csv'
         output = pd.read_csv(file)
 
     for i in range(start_year,end_year+1):
@@ -205,7 +205,7 @@ def search_for_year_track(start_year, end_year, turn):
             print('count track: ',count)
             # get_track_id(album['id'],album['total_tracks'],album['release_date'])
 
-    output.to_csv('spotify_api_'+str(start_year)+'.csv',index=False)
+    output.to_csv('../../dataset/spotify_api_'+str(start_year)+'.csv',index=False)
     # return json_result[0]
 
 def  read_csv():
