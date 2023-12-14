@@ -61,6 +61,8 @@ def add_pop_class(data):
         data['popularity_class'] = dict_transtoCap[i]
         if i > 0:
             result[0] = pd.concat([result[0],result[i]])
+            if i == 3:
+                result[0] = pd.concat([result[0],result[i]])
 
     return result[0]
 
