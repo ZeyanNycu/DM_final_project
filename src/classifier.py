@@ -7,6 +7,7 @@ from sklearn.model_selection import KFold
 import tensorflow as tf
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import roc_auc_score,f1_score
+from gensim.models import Word2Vec
                              
 dict_transtoCap = {
     0:'E',
@@ -67,10 +68,20 @@ def add_pop_class(data):
 
 def split_target(data):
     y = data['popularity_class']
-    ohc = OneHotEncoder(categories = [['E', 'D', 'C', 'B', 'A']], sparse_output = False)
+    ohc = OneHotEncoder(categories = [['E', 'D', 'C', 'B', 'A']])
     y = ohc.fit_transform(y.values.reshape(-1, 1))
     X = data.drop(['popularity','popularity_class'],axis=1)
     X = X.to_numpy()
+    return X,y
+
+
+def split_target_temporal(data,temporal_vector):
+    y = data['popularity_class']
+    ohc = OneHotEncoder(categories = [['E', 'D', 'C', 'B', 'A']])
+    y = ohc.fit_transform(y.values.reshape(-1, 1)).todense()
+    X = data.drop(['popularity','popularity_class'],axis=1)
+    X = X.to_numpy()
+    X += temporal_vector
     return X,y
 
     

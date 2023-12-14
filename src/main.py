@@ -18,12 +18,22 @@ if __name__ == '__main__':
     with open(args.input_file, 'r') as json_file:
         data = json.load(json_file)
     #Do data preprocess
-    df = construct_dataset(data['dataset_path'])
+    if("temporal_embedding" in data.keys()):
+        df,temporal_vector = construct_dataset_temporal(data['dataset_path'])
+    else:
+        df = construct_dataset(data['dataset_path'])
     if(args.mode == "class"):
-        df = add_pop_class(df)
-        X,y = split_target(df)
-        len = len(X[0])
-        model = NN(len)
-        model.train(X,y)
+        if("temporal_embedding" in data.keys()):
+            df = add_pop_class(df)
+            X,y = split_target_temporal(df,temporal_vector)
+            len = len(X[0])
+            model = NN(len)
+            model.train(X,y)
+        else:
+            df = add_pop_class(df)
+            X,y = split_target(df)
+            len = len(X[0])
+            model = NN(len)
+            model.train(X,y)
     elif(args.mode == "cluster"):
         do_cluster(data['cluster_output'],df,data["num_clusters"],data['method'],data['action'])

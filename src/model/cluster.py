@@ -24,9 +24,9 @@ def create_model(df,method,num_clusters,random_state=42):
         spectral_clustering = SpectralClustering(n_clusters=num_clusters, random_state=42)
         spectral_clustering.fit(df)
         df['Cluster'] = spectral_clustering.labels_
-    elif(method == "popularity"):
+    else:
         rank = []
-        a = pd.cut(df['popularity'], bins=5, labels=False)
+        a = pd.cut(df[method], bins=5, labels=False)
         df['Cluster'] = a
     return df
 def do_cluster(output_dir,df,num_clusters,method,action):
